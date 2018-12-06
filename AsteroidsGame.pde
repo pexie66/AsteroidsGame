@@ -65,7 +65,7 @@ public void keyPressed()
   }
 
   //hyperspace: stop the ship; new random position and direction
-  if (key == TAB)
+  if (key == 'h') 
   {
     int setPointDirection = (int)(Math.random()*360);
     int setX = (int)(Math.random()*800);
