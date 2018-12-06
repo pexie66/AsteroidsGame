@@ -1,54 +1,80 @@
-Spaceship one = new Spaceship();
-Star [] two = new Star [250];
+//your variable declarations here
+Spaceship one = new Spaceship ();
+Star two [] = new Star [500];
+ArrayList <Asteroid> three;
 
 public void setup() 
 {
-  size (800,600);
+  //your code here
+  size (800, 600);
   for (int i = 0; i < two.length; i++)
   {
-   two[i] = new Star(); 
+    two[i] = new Star();
+  }
+
+  three = new ArrayList <Asteroid>();
+  for (int k = 0; k < 16; k++)
+  {
+    three.add(k, new Asteroid());
   }
 }
 
 public void draw() 
 {
+  //your code here
   background(0);
-  one.show();
-  one.move();
   for (int i = 0; i < two.length; i++)
   {
     two[i].show();
   }
+
+  for (int k = 0; k < three.size(); k++)
+  {
+    three.get(k).show();
+    three.get(k).move();
+  }
+  
+  for (int k = 0; k < three.size(); k ++)
+    {
+      if (dist(one.getX(), one.getY(), three.get(k).getX(), three.get(k).getY()) < 20)
+        three.remove(k);
+    }
+  
+  one.show();
+  one.move();
 }
 
 public void keyPressed()
 {
   //accelerate
-  if(key == 'i')
+  if (keyCode == UP)
   {
-    one.accelerate(0.5);
+    one.accelerate(0.1);
   }
-  
+
   //turn left
-  if (key == 'j')
+  if (keyCode == LEFT)
   {
-    one.turn(-2);
-  }
-  
+    one.turn(-20);
+  }  
+
   //turn right
-  if (key == 'l')
+  if (keyCode == RIGHT)
   {
-    one.turn(2);
+    one.turn(20);
+  }
+
+  //hyperspace: stop the ship; new random position and direction
+  if (key == TAB)
+  {
+    int setPointDirection = (int)(Math.random()*360);
+    int setX = (int)(Math.random()*800);
+    int setY = (int)(Math.random()*600);     
+    one.setDirectionX(0);
+    one.setDirectionY(0);    
+    one.setPointDirection(setPointDirection);
+    one.setX(setX);
+    one.setY(setY);
   }
   
-  //hyperspace: stop the ship; new random position and direction
-  if (key == 'k')
-  {
-   // one.show();
-    one.setDirectionX(0);
-    one.setDirectionY(0);
-    one.setX((int)(Math.random()*800));
-    one.setY((int)(Math.random()*600));
-    one.setPointDirection((int)(Math.random()*360));
-  }
 }
